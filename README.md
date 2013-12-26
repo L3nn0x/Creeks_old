@@ -1,6 +1,6 @@
 Hello!
 
-This repo is just my attempt at creating an OS from nothing but <b>some</b>lots of documentation.
+This repo is just my attempt at creating an OS from nothing but ~~some~~lots of documentation.
 
 Feel free to try and play aroud with it, but it's in an extremly alpha stage, so I recomend
 trying it on an emulator.
