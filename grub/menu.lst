@@ -1,0 +1,4 @@
+title=Pepin
+root (hd0,0)
+kernel /kernel
+boot
