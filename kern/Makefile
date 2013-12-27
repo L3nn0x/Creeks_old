@@ -1,4 +1,4 @@
-CC = gcc -g -Wall -fno-stack-protector -fno-builtin -I.
+CC = gcc -g -Wall -fno-stack-protector -fno-builtin -I. -I./syscalls
 
 SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
@@ -10,14 +10,14 @@ OBJ_SYSCALLS= $(SRC_SYSCALLS:.c=.o)
 all: kernel
 
 kernel: $(OBJ) $(OBJ_SYSCALLS)
-	make -C asm
+	$(MAKE) -C asm
 	ld -Ttext=100000 --entry=_start asm/*.o $^ -o $@
 
 .o: .c
 	$(CC) -c $^
 
 clean:
-	make clean -C asm
+	$(MAKE) clean -C asm
 	rm -f $(OBJ) $(OBJ_SYSCALLS)
 
 fclean: clean

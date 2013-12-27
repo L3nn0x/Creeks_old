@@ -2,18 +2,13 @@ EXE = hd.img
 
 all: $(EXE)
 
-$(OBJ): clean kernel copy
-
-bootsect:
-	make -C boot
+$(EXE): kernel copy
 
 kernel:
-	make -C kern
+	$(MAKE) -C kern
 
-clean:
-	rm -f *.o bochs.log
-	make -C boot clean
-	make -C kern clean
+clear:
+	$(MAKE) -C kern clean
 
 launch:
 	qemu -hda $(EXE)
