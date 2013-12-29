@@ -11,7 +11,7 @@ all: kernel
 
 kernel: $(OBJ) $(OBJ_SYSCALLS)
 	$(MAKE) -C asm
-	ld --oformat=elf32-i386 -Ttext=100000 --entry=_start asm/*.o $^ -o $@
+	ld -melf_i386 -Ttext=100000 --entry=_start asm/*.o $^ -o $@
 
 .o: .c
 	$(CC) -c $^
