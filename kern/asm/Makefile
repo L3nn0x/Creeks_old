@@ -2,7 +2,7 @@ SRC = boot.asm int.asm sched.asm
 
 CC = nasm
 
-FLAGS = -f elf
+FLAGS = -f elf32
 
 OBJ = $(SRC:.asm=.o)
 

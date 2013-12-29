@@ -24,7 +24,7 @@ void init_gdt_desc(u32 base, u32 limite, u8 acces, u8 other,
 }
 
 /*
- * Cette fonction initialise la GDT apres que le kernel soit charge 
+ * Cette fonction initialise la GDT apres que le kernel soit charge
  * en memoire. Une GDT est deja operationnelle, mais c'est celle qui
  * a ete initialisee par le secteur de boot et qui ne correspond
  * pas forcement a celle que l'on souhaite.
@@ -57,7 +57,7 @@ void init_gdt(void)
 	memcpy((char *) kgdtr.base, (char *) kgdt, kgdtr.limite);
 
 	/* chargement du registre GDTR */
-	asm("lgdtl (kgdtr)");
+	asm("lgdtl (%0)" :: "m" (kgdtr));
 
 	/* initialisation des segments */
 	asm("   movw $0x10, %ax	\n \

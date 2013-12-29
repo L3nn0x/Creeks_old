@@ -40,12 +40,12 @@ void isr_PF_exc(void)
 
 	if (faulting_addr >= USER_OFFSET && faulting_addr < USER_STACK) {
 		pg = (struct page *) kmalloc(sizeof(struct page));
-		pg->p_addr = get_page_frame(); 
+		pg->p_addr = get_page_frame();
 		pg->v_addr = (char *) (faulting_addr & 0xFFFFF000);
 		list_add(&pg->list, &current->pglist);
 		pd_add_page(pg->v_addr, pg->p_addr, PG_USER, current->pd);
-	} 
-	else {		
+	}
+	else {
 		printk("Segmentation fault on eip: %p. cr2: %p code: %p\n", eip, faulting_addr, code);
 		sys_exit(1);
 	}
@@ -68,8 +68,8 @@ void isr_kbd_int(void)
 	uchar i;
 	static int lshift_enable;
 	static int rshift_enable;
-	static int alt_enable;
-	static int ctrl_enable;
+	/* static int alt_enable; */
+	/* static int ctrl_enable; */
 
 	do {
 		i = inb(0x64);
@@ -87,10 +87,10 @@ void isr_kbd_int(void)
 			rshift_enable = 1;
 			break;
 		case 0x1C:
-			ctrl_enable = 1;
+			/* ctrl_enable = 1; */
 			break;
 		case 0x37:
-			alt_enable = 1;
+			/* alt_enable = 1; */
 			break;
 		default:
 			putc_console(kbdmap
@@ -106,10 +106,10 @@ void isr_kbd_int(void)
 			rshift_enable = 0;
 			break;
 		case 0x1C:
-			ctrl_enable = 0;
+			/* ctrl_enable = 0; */
 			break;
 		case 0x37:
-			alt_enable = 0;
+			/* alt_enable = 0; */
 			break;
 		}
 	}

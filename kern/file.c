@@ -8,7 +8,7 @@
 void add_file(struct disk *disk, char* path, int type)
 {
 	char name[512], parent[512];
-	int taille=strlen(path),i=taille,j;
+	int taille=strlen(path),i=taille;
 	while(i!=0&&path[i]!='/')
 		i--;
 	i++;

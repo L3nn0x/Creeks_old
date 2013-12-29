@@ -15,7 +15,8 @@ void *memcpy(char *dst, char *src, int n)
 int strcpy(char *dst, char *src)
 {
 	int i = 0;
-	while ((dst[i] = src[i++]));
+	while ((dst[i] = src[i]))
+		++i;
 
 	return i;
 }
