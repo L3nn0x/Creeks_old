@@ -5,7 +5,7 @@
 #define ORANGE 0x06
 #define WHITE 0x07
 void console_write(char*,int);
-void exit(int);
+void exit(int) __attribute__ ((noreturn));
 int open(char*);
 int read(int, char*, int);
 void close(int);

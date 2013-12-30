@@ -1,4 +1,3 @@
-#include <stdarg.h>
 #include "libc.h"
 
 
@@ -10,7 +9,7 @@ void console_write(char *msg, char color)
 		mov %0, %%eax	\n \
 		mov %1, %%ebx	\n \
 		mov %2, %%ecx   \n \
-		int $0x30" 
+		int $0x30"
 		:: "g" (sys_num), "g" (msg), "g"(color));
 }
 
@@ -21,9 +20,10 @@ void exit(int status)
 	asm volatile ("		   \
 		mov %0, %%eax	\n \
 		mov %1, %%ebx	\n \
-		int $0x30" 
+		int $0x30"
 		:: "g" (sys_num), "g" (status)
 	);
+	while (1);
 }
 
 int open(char *file)
@@ -35,11 +35,11 @@ int open(char *file)
 		mov %1, %%eax		\n \
 		mov %2, %%ebx		\n \
 		int $0x30		\n \
-		mov %%eax, %0"	
-		: "=g" (fd) 
+		mov %%eax, %0"
+		: "=g" (fd)
 		: "g" (sys_num), "m" (file)
 	);
-	
+
 	return fd;
 }
 
@@ -54,11 +54,11 @@ int read(int fd, char *buf, int size)
 		mov %3, %%ecx		\n \
 		mov %4, %%edx		\n \
 		int $0x30		\n \
-		mov %%eax, %0" 
-		: "=g" (count) 
+		mov %%eax, %0"
+		: "=g" (count)
 		: "g" (sys_num), "g" (fd), "g" (buf), "g" (size)
 	);
-	
+
 	return count;
 }
 
@@ -69,7 +69,7 @@ void close(int fd)
 	asm volatile ("		   \
 		mov %0, %%eax	\n \
 		mov %1, %%ebx	\n \
-		int $0x30" 
+		int $0x30"
 		:: "g" (sys_num), "g" (fd)
 	);
 }
@@ -83,14 +83,14 @@ int console_read(char *buf)
 		mov %1, %%eax	\n \
 		mov %2, %%ebx	\n \
 		int $0x30	\n \
-		mov %%eax, %0" 
-		: "=g" (count) 
+		mov %%eax, %0"
+		: "=g" (count)
 		: "g" (sys_num), "g" (buf)
 	);
 
 	return count;
 }
-		
+
 int chdir(char *path)
 {
 	int sys_num = 7,ok=0;
@@ -99,7 +99,7 @@ int chdir(char *path)
 		mov %1, %%eax	\n \
 		mov %2, %%ebx	\n \
 		int $0x30 \n \
-		mov %%eax, %0" 
+		mov %%eax, %0"
 		:"=g"(ok): "g" (sys_num), "g" (path)
 	);
 	return ok;
@@ -112,11 +112,11 @@ void pwd(char *buf)
 	asm volatile ("		   \
 		mov %0, %%eax	\n \
 		mov %1, %%ebx	\n \
-		int $0x30" 
+		int $0x30"
 		:: "g" (sys_num), "g" (buf)
 	);
 }
-		
+
 int exec(char *path, char *argv[])
 {
 	int ret;
@@ -127,8 +127,8 @@ int exec(char *path, char *argv[])
 		mov %2, %%ebx	\n \
 		mov %3, %%ecx	\n \
 		int $0x30	\n \
-		mov %%eax, %0"	
-		: "=g" (ret) 
+		mov %%eax, %0"
+		: "=g" (ret)
 		: "g" (sys_num), "g" (path), "g" (argv)
 	);
 
@@ -144,11 +144,11 @@ void* sbrk(int n)
 		mov %1, %%eax		\n \
 		mov %2, %%ebx		\n \
 		int $0x30		\n \
-		mov %%eax, %0"	
-		: "=g" (addr) 
+		mov %%eax, %0"
+		: "=g" (addr)
 		: "g" (sys_num), "m" (n)
 	);
-	
+
 	return addr;
 }
 
@@ -161,8 +161,8 @@ int wait(int *status)
 		mov %1, %%eax		\n \
 		mov %2, %%ebx		\n \
 		int $0x30		\n \
-		mov %%eax, %0"	
-		: "=g" (pid) 
+		mov %%eax, %0"
+		: "=g" (pid)
 		: "g" (sys_num), "m" (status)
 	);
 
@@ -179,11 +179,11 @@ int kill(int pid, int sig)
 		mov %2, %%ebx		\n \
 		mov %3, %%ecx		\n \
 		int $0x30		\n \
-		mov %%eax, %0"	
-		: "=g" (ret) 
+		mov %%eax, %0"
+		: "=g" (ret)
 		: "g" (sys_num), "g" (pid), "g" (sig)
 	);
-	
+
 	return ret;
 }
 
@@ -197,11 +197,11 @@ int sigaction(int sig, void *fn)
 		mov %2, %%ebx		\n \
 		mov %3, %%ecx		\n \
 		int $0x30		\n \
-		mov %%eax, %0"	
-		: "=g" (ret) 
+		mov %%eax, %0"
+		: "=g" (ret)
 		: "g" (sys_num), "g" (sig), "g" (fn)
 	);
-	
+
 	return ret;
 }
 
