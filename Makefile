@@ -14,6 +14,7 @@ usr:
 
 clean:
 	$(MAKE) -C kern clean
+	$(MAKE) -C usr clean
 
 launch:
 	qemu -hda $(EXE)

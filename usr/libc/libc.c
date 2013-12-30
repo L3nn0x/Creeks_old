@@ -23,8 +23,9 @@ int strlen (char *s)
 int strcpy (char *dst, char *src)
 {
 	int i = 0;
-	while ((dst[i] = src[i++]));
-	
+	while ((dst[i] = src[i]))
+		++i;
+
 	return i;
 }
 
@@ -32,7 +33,8 @@ int strncpy (char *dst, char *src, int n)
 {
 	int i = 0;
 
-	while (n-- && (dst[i] = src[i++]));
+	while (n-- && (dst[i] = src[i]))
+		++i;
 
 	return i;
 }
@@ -41,10 +43,10 @@ int strcmp (char *dst, char *src)
 {
 	int i = 0;
 
-	while ((dst[i] == src[i])) 
+	while ((dst[i] == src[i]))
 		if (src[i++] == 0)
 			return 0;
-	
+
 	return 1;
 }
 
@@ -52,10 +54,10 @@ int strncmp (char *dst, char *src, int n)
 {
 	int i = 0;
 
-	while ((dst[i] == src[i])) 
+	while ((dst[i] == src[i]))
 		if (--n == 0 || src[i++] == 0)
 			return 0;
-	
+
 	return 1;
 }
 
@@ -70,11 +72,11 @@ int atoi(char *str)
 		neg = -1;
 		c++;
 	}
-	else 
+	else
 		neg = 1;
 
 	n = 0;
-	while (*c >= '0' && *c <= '9') 
+	while (*c >= '0' && *c <= '9')
 			n = n * 10 + *c++ - '0';
 
 	return neg * n;

@@ -1,6 +1,6 @@
 EXE=libc.a
 
-FLAGS = -Wall -fno-stack-protector -fno-builtin
+FLAGS = -m32 -Wall -fno-stack-protector -fno-builtin
 
 CC = gcc
 
@@ -15,7 +15,7 @@ $(EXE): $(OBJ)
 	ranlib $@
 
 %.o: %.c
-	$(CC) -c $^ -o $@
+	$(CC) $(FLAGS) -c $^ -o $@
 
 clean:
 	rm -f $(OBJ)
