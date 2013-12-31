@@ -66,7 +66,7 @@ void kmain(struct mb_partial_info *mbi)
 		struct file *fp;
 		struct terminal tty1;
 
-		/* 
+		/*
 		 * Lecture des informations relatives a la premiere partition
 		 */
 		p1 = (struct partition *) kmalloc(sizeof(struct partition));
@@ -80,10 +80,12 @@ void kmain(struct mb_partial_info *mbi)
 		 */
 		hd = ext2_get_disk_info(0, p1);
 		f_root=init_root(hd);
+		printk("Filesystem found ! \n");
 
 		/* Initialise le terminal */
 		tty1.pread = tty1.pwrite = 0;
 		current_term = &tty1;
+		printk("Terminal initialized\n");
 
 		/* Initialise le thread kernel */
 		current = &p_list[0];
@@ -91,6 +93,7 @@ void kmain(struct mb_partial_info *mbi)
 		current->state = 1;
 		current->regs.cr3 = (u32) pd0;
 		current->pwd=f_root;
+		printk("Thread kernel initialized\n");
 
 		//lancement du shell
 		fp=path_to_file("/bin/shell");
