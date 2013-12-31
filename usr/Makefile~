@@ -10,7 +10,7 @@ shell: shell.o libc/libc.a
 	ld -melf_i386 -Ttext=40000000 --entry=main -o $@ $^
 
 cat: cat.o libc/libc.a
-	ld -melf_i386 -Ttext=40000000 --entry=main -o $@ $^
+	ld -melf_i386-Ttext=40000000 --entry=main -o $@ $^
 
 kill: kill.o libc/libc.a
 	ld -melf_i386 -Ttext=40000000 --entry=main -o $@ $^
